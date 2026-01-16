@@ -4,10 +4,7 @@ export default async function handler(event, context) {
   const BREVO_API_KEY = process.env.BREVO_API_KEY;
 
   try {
-    const response = await axios.post('https:                                 
-      sender: {
-        email: '//api.brevo.com/v3/smtp/email', {
-      sender: {
+    const response = await axios.post('https://api.brevo.com/v3/smtp/email', {
         email: 'emmanuelparker15@gmail.com',
         name: 'Emmanuel Parker'
       },
