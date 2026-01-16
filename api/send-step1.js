@@ -1,4 +1,4 @@
-export async function handler(event, context) {
+export default async function handler(event, context) {
     if (event.httpMethod !== 'POST') {
         return {
             statusCode: 405,
