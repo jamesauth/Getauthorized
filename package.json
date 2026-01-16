@@ -4,5 +4,6 @@
   "description": "Log system deployed on Netlify",
   "dependencies": {
     "nodemailer": "^6.9.13"
-  }
-  {"type": "module"}
+  },
+  "type": "module"
+}
